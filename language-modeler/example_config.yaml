@@ -1,0 +1,34 @@
+# Example config file for the language modeler re-training
+parameters:
+  # (Required) The text file for retraining
+  retrain_text_filepath: ../datasets/olid_only_tweets.txt # (String)
+
+  # Maximum sequence length for the text
+  max_seq_size: 128 # (String) Default: 512
+
+  # (Required) Name of the transformer model
+  transformer_model: roberta-base # (String)
+
+  # (Required) Name of the tokenizer
+  tokenizer: roberta-base # (String)
+
+  # Masked LM probability
+  mlm_probability: 0.15 # (Integer) Default: 0.15
+
+  # (Required) Number of training epochs
+  epochs: 1 # (Integer)
+
+  # Random Seed
+  random_seed: 42 # (Integer) Default: 42
+
+  # Save path/name of the final model
+  model_save_path: ./custom-model # (String) Default: ./custom-model
+
+  # (Optional) Interim training save path
+  interim_dir: ./retrain-interim
+
+  # (Optional) Save model after every number of steps
+  save_every: 1000
+
+  # (Optional) Number of interim models to save
+  save_limit: 2
