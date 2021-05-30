@@ -16,7 +16,7 @@ parameters:
   mlm_probability: 0.15 # (Integer) Default: 0.15
 
   # (Required) Number of training epochs
-  epochs: 1 # (Integer)
+  epochs: 5 # (Integer)
 
   # Random Seed
   random_seed: 42 # (Integer) Default: 42

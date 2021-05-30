@@ -12,9 +12,11 @@ pip install -r requirements.txt
 ```
 
 ## Language Modeler
-Change the parameters in ```example_config.yaml``` file.
+Change the language modeling parameters in ```example_config.yaml``` file.
 
-Run the language modeler ```python modeler.py --config_yaml example_config.yaml```
+Run the language modeler ```python language_modeler.py --config_yaml example_config.yaml```
 
 ## Model Training
+Change the transformer modeling parameters in ```example_config.yaml``` file.
+
 TBU
