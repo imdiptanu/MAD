@@ -19,7 +19,7 @@ import yaml
 import os
 
 
-# Parameters
+# Training Batch Size
 PER_DEVICE_TRAIN_BATCH_SIZE = 16
 
 
