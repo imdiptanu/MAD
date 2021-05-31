@@ -17,6 +17,9 @@ Change the language modeling parameters in ```example_config.yaml``` file.
 Run the language modeler ```python language_modeler.py --config_yaml example_config.yaml```
 
 ## Model Training
-Change the transformer modeling parameters in ```example_config.yaml``` file.
 
-TBU
+For now use the Python notebook.
+
+*(TBU - In Progress)*
+Change the transformer modeling parameters in ```example_config.yaml``` file.
+Training and test transformer modeles ```python model_training.py --config_yaml example_config.yaml```
