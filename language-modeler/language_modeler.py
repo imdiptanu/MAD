@@ -1,5 +1,5 @@
 """
-Filename: modeler.py
+Filename: language_modeler.py
 Author: Diptanu Sarkar, ds9297@rit.edu, Rochester Institute of Technology
 Description: TBU
 """
@@ -19,7 +19,7 @@ import yaml
 import os
 
 
-# Training Batch Size
+# Training batch size
 PER_DEVICE_TRAIN_BATCH_SIZE = 16
 
 

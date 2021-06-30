@@ -1,0 +1,38 @@
+# Example config file for the aggression detection retraining
+parameters:
+
+  # (Required) Name of the huggingface or local transformer model
+  transformer_model: bert-base-uncased
+
+  # (Required) Name of the tokenizer
+  tokenizer: bert-base-uncased
+
+  # (Optional) Convert texts to lowercase
+  do_lower_case: False # Default: False
+
+  # (Required) Train, Dev, Test files
+  train_file: ../datasets/hatexplain_train.csv
+  dev_file: ../datasets/hatexplain_dev.csv
+  test_file: ../datasets/hatexplain_test.csv
+
+  # (Required) Learning rate
+  learning_rate: 2e-05
+
+  # (Required) Maximum sequence length for the text
+  max_seq_size: 128
+
+  # (Required) Number of training epochs
+  epochs: 3
+
+  # (Optional) Early stopping
+  early_stopping: False # Default: False
+
+  # (Optional) Batch size
+  batch_size: 16 # Default: 16
+
+  # (Optional) Random Seed
+  random_seeds: [42] # Default: [42]
+
+  # (Optional) Alpha and Beta parameters
+  alpha: 1 # Default: 1
+  beta: 1 # Default: 1
