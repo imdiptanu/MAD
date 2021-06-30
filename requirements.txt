@@ -2,3 +2,4 @@ black==21.5b1
 flake8==3.9.2
 pyyaml==5.4.1
 utils/FARM
+pathlib==1.0.1

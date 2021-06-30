@@ -5,6 +5,9 @@ from farm.data_handler.samples import (
     SampleBasket,
 )
 from farm.data_handler.utils import expand_labels
+import ast
+import numpy as np
+import pandas as pd
 
 
 class MTLProcessor(Processor):
@@ -16,7 +19,7 @@ class MTLProcessor(Processor):
         train_filename,
         test_filename,
         delimiter,
-        dev_split=0.0,
+        dev_split=0.15,
         dev_filename=None,
         label_list=None,
         metric=None,
@@ -37,7 +40,7 @@ class MTLProcessor(Processor):
             proxies=proxies,
         )
 
-    def file_to_dicts(self, file: str) -> [dict]:
+    def file_to_dicts(self, file: str):
         dicts = list()
         df = pd.read_csv(file)
         for text, label, tokens in zip(
@@ -55,7 +58,7 @@ class MTLProcessor(Processor):
     @staticmethod
     def _get_start_of_word(word_ids):
         words = np.array(word_ids)
-        words[words == None] = -1
+        words[words is None] = -1
         start_of_word_single = [0] + list(np.ediff1d(words) > 0)
         start_of_word_single = [int(x) for x in start_of_word_single]
         return start_of_word_single
