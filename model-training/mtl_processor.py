@@ -58,7 +58,7 @@ class MTLProcessor(Processor):
     @staticmethod
     def _get_start_of_word(word_ids):
         words = np.array(word_ids)
-        words[words is None] = -1
+        words[words == None] = -1
         start_of_word_single = [0] + list(np.ediff1d(words) > 0)
         start_of_word_single = [int(x) for x in start_of_word_single]
         return start_of_word_single

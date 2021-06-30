@@ -4,7 +4,7 @@ parameters:
   # (Required) Name of the huggingface or local transformer model
   transformer_model: bert-base-uncased
 
-  # (Required) Name of the tokenizer
+  # (Required) Name of the tokenizer or local tokenizer path
   tokenizer: bert-base-uncased
 
   # (Optional) Convert texts to lowercase
@@ -22,7 +22,7 @@ parameters:
   max_seq_size: 128
 
   # (Required) Number of training epochs
-  epochs: 3
+  epochs: 2
 
   # (Optional) Early stopping
   early_stopping: False # Default: False
@@ -31,8 +31,14 @@ parameters:
   batch_size: 16 # Default: 16
 
   # (Optional) Random Seed
-  random_seeds: [42] # Default: [42]
+  random_seeds: [3, 42] # Default: [42]
 
   # (Optional) Alpha and Beta parameters
   alpha: 1 # Default: 1
   beta: 1 # Default: 1
+
+  # (Optional) Evaluate after
+  evaluate_every: 500 # Default: 100
+
+  # (Optional) Dropout probability
+  embeds_dropout_prob: 0.1 # Default: 0.1

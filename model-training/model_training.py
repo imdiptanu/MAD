@@ -5,17 +5,16 @@ Description: TBU
 """
 
 # Importing the required libraries
-from pprint import pprint
 import click
 import yaml
 import os
 import gc
-import pandas as pd
 import ast
 import torch
-from sklearn.metrics import f1_score
 from typing import List
 from pathlib import Path
+import pandas as pd
+from pprint import pprint
 from farm.modeling.tokenization import Tokenizer
 from farm.data_handler.data_silo import DataSilo
 from farm.modeling.language_model import LanguageModel
@@ -26,11 +25,12 @@ from farm.modeling.prediction_head import (
 from farm.modeling.adaptive_model import AdaptiveModel
 from farm.modeling.optimization import initialize_optimizer
 from farm.train import Trainer
+from farm.train import EarlyStopping
 from farm.utils import set_all_seeds, initialize_device_settings
 from mtl_processor import MTLProcessor
 from farm.evaluation.metrics import register_metrics
-from farm.train import EarlyStopping
 from farm.infer import Inferencer
+from sklearn.metrics import f1_score
 
 
 def custom_f1_score(y_true, y_pred):
@@ -50,11 +50,10 @@ def loss_function(
 
 
 def train_and_evaluate(parameters: dict):
-    evaluate_every = 500
-    embeds_dropout_prob = 0.1
-    save_trained_models = True
-
     device, n_gpu = initialize_device_settings(use_cuda=True)
+    TOKEN_LABELS = ["X", "0", "1"]
+    LABEL_LIST = ["normal", "offensive", "hatespeech"]
+
     # Set-up
     test_result_data = pd.read_csv(parameters["test_file"], delimiter=",")
     test_texts = []
@@ -80,9 +79,6 @@ def train_and_evaluate(parameters: dict):
             add_prefix_space="roberta" in parameters["tokenizer"],  # For roberta only
         )
 
-        NER_LABELS = ["X", "0", "1"]
-        LABEL_LIST = ["normal", "offensive", "hatespeech"]
-
         processor = MTLProcessor(
             data_dir=".",
             tokenizer=tokenizer,
@@ -105,7 +101,7 @@ def train_and_evaluate(parameters: dict):
         )
         processor.add_task(
             name="token_level_task",
-            label_list=NER_LABELS,
+            label_list=TOKEN_LABELS,
             metric="f1_weighted",
             text_column_name="text",
             label_column_name="tokens",
@@ -127,13 +123,13 @@ def train_and_evaluate(parameters: dict):
             num_labels=len(LABEL_LIST), task_name="document_level_task"
         )
         token_level_task_head = TokenClassificationHead(
-            num_labels=len(NER_LABELS), task_name="token_level_task"
+            num_labels=len(TOKEN_LABELS), task_name="token_level_task"
         )
 
         model = AdaptiveModel(
             language_model=language_model,
             prediction_heads=[document_level_task_head, token_level_task_head],
-            embeds_dropout_prob=embeds_dropout_prob,
+            embeds_dropout_prob=parameters["embeds_dropout_prob"],
             lm_output_types=["per_sequence", "per_token"],
             device=device,
             loss_aggregation_fn=loss_function,
@@ -155,8 +151,8 @@ def train_and_evaluate(parameters: dict):
             n_gpu=n_gpu,
             lr_schedule=lr_schedule,
             device=device,
-            evaluate_every=evaluate_every,
-            early_stopping=earlystopping,
+            evaluate_every=parameters["evaluate_every"],
+            early_stopping=earlystopping if parameters["early_stopping"] else None,
         )
 
         model = trainer.train()
@@ -268,7 +264,7 @@ def majority_vote(results_df, random_seed_list):
     for idx in range(len(results_df)):
         indv_list = []
         for seed in random_seed_list:
-            seed_name = "seed_token" + str(seed)
+            seed_name = "seed_token_" + str(seed)
             seed_list = results_df[seed_name].values[idx]
             if len(indv_list) == 0:
                 for i in range(len(seed_list)):
@@ -318,6 +314,10 @@ def validate_yaml(parameters: dict):
             parameters["dev_split"] = 0.15
         if "early_stopping" not in parameters:
             parameters["early_stopping"] = False
+        if "evaluate_every" not in parameters:
+            parameters["evaluate_every"] = 100
+        if "embeds_dropout_prob" not in parameters:
+            parameters["embeds_dropout_prob"] = 0.1
     except Exception as e:
         print("Error: ", e)
 
