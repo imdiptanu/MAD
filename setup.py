@@ -1,7 +1,11 @@
 from distutils.core import setup
+import os
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
+
+path = os.getcwd()
+farm_util = path + "/utils/FARM"
 
 setup(
     name="mad_fw",
@@ -14,7 +18,7 @@ setup(
     author="Diptanu Sarkar",
     author_email="diptanusarkar@hotmail.com",
     url="https://github.com/imdiptanu/MAD",
-    download_url="https://github.com/imdiptanu/MAD/archive/refs/tags/0.1.1.tar.gz",
+    download_url="https://github.com/imdiptanu/MAD/archive/refs/tags/0.1.3.tar.gz",
     classifiers=[
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: Apache Software License",
@@ -23,7 +27,7 @@ setup(
     ],
     python_requires=">=3.7",
     install_requires=[
-        # "utils/FARM",
+        f"FARM @ file://localhost/{farm_util}#egg=FARM",
         "click",
         "pathlib",
         "pandas",
