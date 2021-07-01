@@ -10,7 +10,7 @@ farm_util = path + "/utils/FARM"
 setup(
     name="mad_fw",
     packages = ["mad_fw"],
-    version="0.1.4",
+    version="0.1.5",
     license="MIT",
     description="Multitask Aggression Detection (MAD)",
     long_description=long_description,
@@ -18,7 +18,7 @@ setup(
     author="Diptanu Sarkar",
     author_email="diptanusarkar@hotmail.com",
     url="https://github.com/imdiptanu/MAD",
-    download_url="https://github.com/imdiptanu/MAD/archive/refs/tags/0.1.3.tar.gz",
+    download_url="https://github.com/imdiptanu/MAD/archive/refs/tags/0.1.4.tar.gz",
     classifiers=[
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: Apache Software License",
