@@ -16,6 +16,7 @@ from typing import List
 from pathlib import Path
 import pandas as pd
 from pprint import pprint
+from sklearn.metrics import f1_score
 from farm.modeling.tokenization import Tokenizer
 from farm.data_handler.data_silo import DataSilo
 from farm.modeling.language_model import LanguageModel
@@ -31,7 +32,6 @@ from farm.utils import set_all_seeds, initialize_device_settings
 from mtl_processor import MTLProcessor
 from farm.evaluation.metrics import register_metrics
 from farm.infer import Inferencer
-from sklearn.metrics import f1_score
 
 
 def custom_f1_score(y_true, y_pred):

@@ -5,7 +5,8 @@ with open("README.md", "r") as fh:
 
 setup(
     name="mad_fw",
-    version="0.1.2",
+    packages = ["mad_fw"],
+    version="0.1.4",
     license="MIT",
     description="Multitask Aggression Detection (MAD)",
     long_description=long_description,
@@ -20,10 +21,14 @@ setup(
         "Programming Language :: Python :: 3",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
-    python_requires="==3.7",
+    python_requires=">=3.7",
     install_requires=[
-        "pyyaml==5.4.1",
-        "utils/FARM",
-        "pathlib==1.0.1",
+        # "utils/FARM",
+        "click",
+        "pathlib",
+        "pandas",
+        "scikit-learn",
+        "pyyaml",
+        "typing",
     ],
 )
