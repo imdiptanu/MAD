@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="mad_fw",
-    version="0.1.1",
+    version="0.1.2",
     license="MIT",
     description="Multitask Aggression Detection (MAD)",
     long_description=long_description,
