@@ -1,1 +1,1 @@
-from mad_fw.mad import MADApp
+from mad_fw.mad_app import MADApp

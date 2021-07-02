@@ -1,16 +1,12 @@
 from distutils.core import setup
-import os
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-path = os.getcwd()
-farm_util = path + "/utils/FARM"
-
 setup(
     name="mad_fw",
     packages = ["mad_fw"],
-    version="0.1.5",
+    version="0.1.12",
     license="MIT",
     description="Multitask Aggression Detection (MAD)",
     long_description=long_description,
@@ -27,7 +23,6 @@ setup(
     ],
     python_requires=">=3.7",
     install_requires=[
-        f"FARM @ file://localhost/{farm_util}#egg=FARM",
         "click",
         "pathlib",
         "pandas",

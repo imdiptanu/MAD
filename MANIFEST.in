@@ -8,4 +8,3 @@ recursive-include datasets *
 recursive-include language-modeler *
 recursive-include mad_fw *
 recursive-include model-training *
-recursive-include utils *
